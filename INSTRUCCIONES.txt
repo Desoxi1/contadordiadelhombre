@@ -1,0 +1,51 @@
+ARCHIVOS DEL PROYECTO
+
+1) index.html -> la página del contador
+2) fondo_griego.webp -> imagen de fondo
+3) video.mp4 -> video que aparece cuando llega el Día del Hombre
+
+COMO FUNCIONA
+
+- La fecha está configurada para el 19 de noviembre a las 09:00, hora de Chile.
+- Antes de esa hora, la página muestra la cuenta regresiva.
+- Desde el 19 de noviembre a las 09:00 hasta el final del día, muestra el video.
+- El video tiene botones para activar sonido y reproducirlo de nuevo.
+- Al pasar al 20 de noviembre, el contador vuelve automáticamente al próximo 19 de noviembre.
+
+MODO DE PRUEBA
+
+Para probar el video sin cambiar la fecha real, abre:
+
+index.html?demo=dia
+
+Para volver al contador normal, borra ?demo=dia de la URL.
+
+QUE PUEDES CAMBIAR
+
+Abre index.html y busca la sección:
+
+const EVENT_CONFIG = {
+
+Ahí puedes cambiar:
+
+- timeZone: zona horaria
+- eyebrowText: texto superior
+- titleHTML: título principal
+- subtitleText: texto bajo el título
+- footerText: texto inferior
+- endMessage: mensaje cuando aparece el video
+- videoPath: nombre del video
+
+PUBLICAR EN VERCEL
+
+Sube la carpeta completa a Vercel:
+
+- index.html
+- fondo_griego.webp
+- video.mp4
+
+No necesita backend ni build command. Es una página estática.
+
+OJO CON EL VIDEO
+
+El video actual pesa un poco más de 100 MB. En Vercel Hobby, los archivos estáticos tienen límite de subida de 100 MB; si el deploy falla, comprime video.mp4 por debajo de 100 MB o aloja el video aparte y cambia videoPath por esa URL.

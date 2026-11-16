@@ -100,6 +100,52 @@
       background: radial-gradient(ellipse 52% 60% at 50% 55%, rgba(11,4,24,0.48), rgba(11,4,24,0.17) 68%, transparent);
     }
 
+    .cover-glow {
+      background:
+        radial-gradient(ellipse 38% 24% at 56% 44%, rgba(255,122,85,0.42), transparent),
+        radial-gradient(ellipse 40% 32% at 44% 34%, rgba(133,71,255,0.32), transparent);
+      mix-blend-mode: screen;
+    }
+
+    .cover-palms {
+      transform: translate(calc(var(--px) * 12px), calc(var(--py) * 6px));
+      transition: transform 0.6s ease-out;
+    }
+
+    .cover-palms::before,
+    .cover-palms::after {
+      content: "";
+      position: absolute;
+      width: clamp(176px, 24vw, 370px);
+      height: min(62vh, 560px);
+      background: url('palmeras-portada.webp') center bottom / contain no-repeat;
+      opacity: 0.86;
+    }
+
+    .cover-palms::before {
+      left: -8.5vw;
+      bottom: -16%;
+      transform: rotate(-8deg);
+    }
+
+    .cover-palms::after {
+      right: -6vw;
+      bottom: -15%;
+      transform: scaleX(-0.86) scaleY(0.81) rotate(-6deg);
+      transform-origin: 60% 90%;
+    }
+
+    @media (orientation: portrait) {
+      .cover-palms::before,
+      .cover-palms::after {
+        width: clamp(125px, 40vw, 265px);
+        height: min(40vh, 360px);
+      }
+
+      .cover-palms::before { left: -16vw; bottom: -8%; }
+      .cover-palms::after { right: -14vw; bottom: -11%; }
+    }
+
     .flare {
       background: linear-gradient(105deg, transparent 40%, rgba(255,209,102,0.12) 47%, rgba(255,255,255,0.18) 50%, rgba(255,61,154,0.12) 53%, transparent 60%);
       background-size: 250% 100%;
@@ -494,9 +540,11 @@
     <div class="scene" aria-hidden="true">
       <div class="bg-wrap"><div class="bg"></div></div>
       <div class="focus"></div>
+      <div class="cover-glow"></div>
       <div class="flare"></div>
       <div class="grain"></div>
       <div class="shade"></div>
+      <div class="cover-palms"></div>
     </div>
 
     <header class="hud-top">

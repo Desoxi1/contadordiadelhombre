@@ -123,14 +123,14 @@
     }
 
     .cover-palms::before {
-      left: -8.5vw;
-      bottom: -16%;
+      left: 1.5vw;
+      bottom: -10%;
       transform: rotate(-8deg);
     }
 
     .cover-palms::after {
-      right: -6vw;
-      bottom: -15%;
+      right: 2vw;
+      bottom: -10%;
       transform: scaleX(-0.86) scaleY(0.81) rotate(-6deg);
       transform-origin: 60% 90%;
     }
@@ -142,8 +142,8 @@
         height: min(40vh, 360px);
       }
 
-      .cover-palms::before { left: -16vw; bottom: -8%; }
-      .cover-palms::after { right: -14vw; bottom: -11%; }
+      .cover-palms::before { left: -2vw; bottom: -5%; }
+      .cover-palms::after { right: -1vw; bottom: -7%; }
     }
 
     .flare {
@@ -521,6 +521,53 @@
 
     @media (max-width: 420px) {
       .control-button { width: 100%; }
+    }
+
+    /* ---------- Botón de música de fondo (lo crea musica.js) ---------- */
+    .music-toggle {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      z-index: 20;
+      max-width: calc(100vw - 32px);
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 999px;
+      background: rgba(14,6,30,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--cyan);
+      cursor: pointer;
+      font: 800 0.72rem var(--ui);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    }
+
+    .music-toggle.is-off { color: var(--soft); }
+
+    .music-toggle.is-waiting {
+      color: var(--sun);
+      animation: buttonPulse 1.4s ease-in-out infinite;
+    }
+
+    .music-toggle:focus-visible { outline: 2px solid var(--sun); outline-offset: 3px; }
+
+    .music-toggle .mt-icon { margin-right: 6px; }
+
+    @media (max-width: 720px) {
+      .music-toggle {
+        right: 10px;
+        bottom: 10px;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        font-size: 1.1rem;
+      }
+
+      .music-toggle .mt-icon { margin: 0; }
+      .music-toggle .mt-label { display: none; }
+      .footer-note { padding: 0 44px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -972,5 +1019,6 @@
     render();
     setInterval(render, 1000);
   </script>
+  <script src="musica.js"></script>
 </body>
 </html>

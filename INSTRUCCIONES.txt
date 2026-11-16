@@ -1,7 +1,7 @@
 ARCHIVOS DEL PROYECTO
 
 1) index.html -> la página del contador
-2) fondo_griego.webp -> imagen de fondo
+2) fondo_vice.svg -> imagen de fondo (atardecer neón, arte propio sin marca de agua)
 3) video.mp4 -> video que aparece cuando llega el Día del Hombre
 
 COMO FUNCIONA
@@ -41,7 +41,7 @@ PUBLICAR EN VERCEL
 Sube la carpeta completa a Vercel:
 
 - index.html
-- fondo_griego.webp
+- fondo_vice.svg
 - video.mp4
 
 No necesita backend ni build command. Es una página estática.

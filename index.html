@@ -7,12 +7,15 @@
   <title>Cuenta regresiva Día del Hombre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Bowlby+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap" rel="stylesheet">
   <style>
-    /* =====================================================
-       DISEÑO "VICE KEY ART" (inspirado en GTA VI)
-       Tipografías: Bowlby One (palabras y números) + Abril Fatface (XIX)
-       ===================================================== */
+    @font-face {
+      font-family: Teko;
+      src: url('fonts/teko-bold-latin.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
     :root {
       --bg: #120630;
       --text: #fff6f2;
@@ -27,6 +30,7 @@
       --neon: linear-gradient(120deg, var(--cyan), var(--purple), var(--pink), var(--orange), var(--cyan));
       --sunset: linear-gradient(100deg, var(--sun), var(--orange) 35%, var(--pink) 70%, var(--purple));
       --display: 'Bowlby One', 'Arial Black', Impact, sans-serif;
+      --poster: Teko, Impact, 'Arial Narrow', sans-serif;
       --ui: 'Segoe UI', Inter, Arial, Helvetica, sans-serif;
     }
 
@@ -81,59 +85,26 @@
     .bg {
       position: absolute;
       inset: 0;
-      background: #120624 url('fondo_collage.svg') center / cover no-repeat;
+      background: #120624 url('fondo-portada.webp') center / cover no-repeat;
       transform-origin: 50% 50%;
       animation: kenBurns 30s ease-in-out infinite alternate;
     }
 
     /* En celular vertical, collage armado en vertical */
     @media (orientation: portrait) {
-      .bg { background-image: url('fondo_collage_movil.svg'); }
+      .bg { background-image: url('fondo-portada-movil.webp'); }
     }
 
     /* Oscurece el centro del collage para que el logo y el contador se lean */
     .focus {
-      background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(11,4,24,0.72), rgba(11,4,24,0.35) 60%, rgba(11,4,24,0.15) 100%);
+      background: radial-gradient(ellipse 52% 60% at 50% 55%, rgba(11,4,24,0.48), rgba(11,4,24,0.17) 68%, transparent);
     }
-
-    .sun-pulse {
-      background: radial-gradient(circle at 50% 58%, rgba(255,210,122,0.35), transparent 32%);
-      mix-blend-mode: screen;
-      animation: breathe 6s ease-in-out infinite;
-    }
-
-    .palms {
-      inset: auto 0 0 0;
-      height: 100%;
-      transform: translate(calc(var(--px) * 22px), calc(var(--py) * 8px));
-      transition: transform 0.6s ease-out;
-    }
-
-    .palm {
-      position: absolute;
-      bottom: -5%;
-      width: clamp(180px, 25vw, 420px);
-      height: auto;
-      fill: #0d0318;
-      transform-origin: 50% 100%;
-      filter: drop-shadow(0 0 22px rgba(255,61,154,0.3));
-    }
-
-    .palm.left { left: -4%; animation: sway 6.5s ease-in-out infinite; }
-    .palm.left.back { left: 10%; bottom: -12%; width: clamp(120px, 15vw, 250px); opacity: 0.75; animation-duration: 8s; animation-delay: -2s; }
-    .palm.right { right: -4%; animation: swayFlip 7.2s ease-in-out infinite; }
 
     .flare {
       background: linear-gradient(105deg, transparent 40%, rgba(255,209,102,0.12) 47%, rgba(255,255,255,0.18) 50%, rgba(255,61,154,0.12) 53%, transparent 60%);
       background-size: 250% 100%;
       mix-blend-mode: screen;
       animation: flareSweep 10s ease-in-out infinite;
-    }
-
-    .scan {
-      background: repeating-linear-gradient(180deg, rgba(255,255,255,0.035) 0 1px, transparent 1px 3px);
-      mix-blend-mode: overlay;
-      opacity: 0.55;
     }
 
     .grain {
@@ -145,8 +116,7 @@
 
     .shade {
       background:
-        linear-gradient(180deg, rgba(11,4,24,0.55) 0%, transparent 20%, transparent 50%, rgba(11,4,24,0.72) 100%),
-        radial-gradient(ellipse 120% 90% at 50% 45%, transparent 55%, rgba(11,4,24,0.6) 100%);
+        linear-gradient(180deg, rgba(11,4,24,0.6), transparent 15% 68%, rgba(11,4,24,0.84));
     }
 
     /* ---------- HUD superior ---------- */
@@ -211,9 +181,8 @@
       gap: clamp(14px, 2.6vh, 28px);
     }
 
-    /* Logo: "día del hombre" sobre XIX */
     h1.logo {
-      width: min(720px, 92vw, 66vh);
+      width: min(930px, 96vw, 84vh);
       transform: translate(calc(var(--px) * 8px), calc(var(--py) * 6px));
       transition: transform 0.6s ease-out;
     }
@@ -227,14 +196,15 @@
     }
 
     .num {
-      font-family: 'Abril Fatface', 'Bodoni MT Black', Georgia, serif;
-      font-size: 360px;
-      letter-spacing: -6px;
+      font-family: var(--poster);
+      font-size: 510px;
+      font-weight: 700;
+      letter-spacing: -8px;
     }
 
     .num-extrude { fill: var(--ink); stroke: var(--ink); stroke-width: 30; stroke-linejoin: round; }
     .num-back { fill: var(--ink); stroke: var(--ink); stroke-width: 30; stroke-linejoin: round; }
-    .num-white { fill: none; stroke: #fff6f2; stroke-width: 12; stroke-linejoin: round; }
+    .num-white { fill: none; stroke: #f6dbff; stroke-width: 12; stroke-linejoin: round; }
     .num-front { fill: url(#numFill); }
 
     .num-group {
@@ -246,13 +216,16 @@
     .num-gloss { animation: glossMove 5s ease-in-out infinite; }
 
     .words text {
-      font-family: var(--display);
-      font-size: 92px;
-      letter-spacing: -1px;
+      font-family: var(--poster);
+      font-size: 140px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-anchor: start;
+      stroke-linejoin: round;
     }
 
-    .w-shadow { fill: var(--ink); stroke: var(--ink); stroke-width: 20; stroke-linejoin: round; }
-    .w-main { fill: #ffffff; stroke: var(--ink); stroke-width: 18; stroke-linejoin: round; paint-order: stroke fill; }
+    .w-shadow { fill: #513075; stroke: #513075; stroke-width: 19; }
+    .w-main { fill: url(#wordFill); stroke: var(--ink); stroke-width: 16; paint-order: stroke fill; }
 
     .word {
       transform-box: fill-box;
@@ -462,9 +435,6 @@
 
     /* ---------- Animaciones ---------- */
     @keyframes kenBurns { 0% { transform: scale(1.03); } 100% { transform: scale(1.14) translate(-1.5%, -1%); } }
-    @keyframes breathe { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
-    @keyframes sway { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.8deg); } }
-    @keyframes swayFlip { 0%, 100% { transform: scaleX(-1) rotate(-1.4deg); } 50% { transform: scaleX(-1) rotate(1.9deg); } }
     @keyframes flareSweep { 0% { background-position: 120% 0; } 55%, 100% { background-position: -40% 0; } }
     @keyframes grainShift { 0% { transform: translate(0,0); } 33% { transform: translate(-1px,1px); } 66% { transform: translate(1px,-1px); } 100% { transform: translate(0,0); } }
     @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(255,61,154,0.7); } 100% { box-shadow: 0 0 0 10px rgba(255,61,154,0); } }
@@ -498,9 +468,6 @@
 
       .value { font-size: clamp(2.4rem, 13vw, 3.4rem); }
 
-      .palm { opacity: 0.7; }
-      .palm.left.back { display: none; }
-
       .subtitle { font-size: 0.92rem; }
 
       video { max-height: 52vh; }
@@ -513,6 +480,7 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
@@ -520,21 +488,6 @@
   </style>
 </head>
 <body>
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <defs>
-      <symbol id="palmShape" viewBox="0 0 220 420">
-        <path d="M104 420 C100 340 96 260 108 168 L116 168 C108 262 114 340 122 420 Z"/>
-        <path d="M112 168 C84 132 46 126 6 150 C44 138 78 146 110 176 Z"/>
-        <path d="M112 166 C92 120 58 96 18 98 C58 108 88 134 108 174 Z"/>
-        <path d="M112 164 C112 118 96 78 64 52 C92 86 104 124 106 168 Z"/>
-        <path d="M112 164 C130 118 160 92 204 92 C164 106 136 132 116 172 Z"/>
-        <path d="M114 168 C146 134 184 130 216 152 C180 144 148 152 118 178 Z"/>
-        <path d="M112 166 C124 122 150 86 186 60 C156 96 130 130 116 170 Z"/>
-        <path d="M110 170 C86 176 60 196 46 232 C66 204 90 188 114 178 Z"/>
-        <path d="M114 170 C140 178 162 200 172 236 C154 206 132 190 110 180 Z"/>
-      </symbol>
-    </defs>
-  </svg>
 
   <!-- ===================== CONTADOR ===================== -->
   <section id="countdownScreen" class="screen" aria-live="polite">
@@ -542,7 +495,6 @@
       <div class="bg-wrap"><div class="bg"></div></div>
       <div class="focus"></div>
       <div class="flare"></div>
-      <div class="scan"></div>
       <div class="grain"></div>
       <div class="shade"></div>
     </div>
@@ -554,38 +506,50 @@
 
     <div class="stage">
       <h1 id="mainTitle" class="logo" aria-label="Día del Hombre">
-        <svg viewBox="0 0 800 470" aria-hidden="true">
+        <svg viewBox="60 66 760 407" aria-hidden="true">
           <defs>
             <linearGradient id="numFill" x1="0" y1="0" x2="0.35" y2="1">
-              <stop offset="0" stop-color="#ffe17a"/>
-              <stop offset="0.22" stop-color="#ffb347"/>
-              <stop offset="0.45" stop-color="#ff6a3d"/>
-              <stop offset="0.7" stop-color="#ff3d9a"/>
-              <stop offset="1" stop-color="#a13cff"/>
+              <stop offset="0" stop-color="#6454ed"/>
+              <stop offset="0.28" stop-color="#a76dff"/>
+              <stop offset="0.58" stop-color="#ff59ab"/>
+              <stop offset="1" stop-color="#ffab61"/>
+            </linearGradient>
+            <linearGradient id="wordFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#fffefa"/>
+              <stop offset="1" stop-color="#f3e3ff"/>
             </linearGradient>
             <linearGradient id="numGloss" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stop-color="#fff" stop-opacity="0.7"/>
               <stop offset="1" stop-color="#fff" stop-opacity="0"/>
             </linearGradient>
             <clipPath id="numClip">
-              <text class="num" x="400" y="325" text-anchor="middle">XIX</text>
+              <text class="num" x="454" y="420" text-anchor="middle">XIX</text>
             </clipPath>
           </defs>
 
           <g class="num-group">
-            <text class="num num-extrude" x="412" y="338" text-anchor="middle">XIX</text>
-            <text class="num num-back" x="400" y="325" text-anchor="middle">XIX</text>
-            <text class="num num-white" x="400" y="325" text-anchor="middle">XIX</text>
-            <text class="num num-front" x="400" y="325" text-anchor="middle">XIX</text>
+            <text class="num num-extrude" x="466" y="433" text-anchor="middle">XIX</text>
+            <text class="num num-back" x="454" y="420" text-anchor="middle">XIX</text>
+            <text class="num num-white" x="454" y="420" text-anchor="middle">XIX</text>
+            <text class="num num-front" x="454" y="420" text-anchor="middle">XIX</text>
             <g clip-path="url(#numClip)">
               <rect class="num-gloss" x="40" y="60" width="720" height="110" fill="url(#numGloss)" transform="skewY(-8)"/>
             </g>
           </g>
 
-          <g class="words" id="logoWords">
-            <g class="word"><text class="w-shadow" x="226" y="290" data-line="0">día</text><text class="w-main" x="220" y="283" data-line="0">día</text></g>
-            <g class="word"><text class="w-shadow" x="226" y="368" data-line="1">del</text><text class="w-main" x="220" y="361" data-line="1">del</text></g>
-            <g class="word"><text class="w-shadow" x="226" y="446" data-line="2">hombre</text><text class="w-main" x="220" y="439" data-line="2">hombre</text></g>
+          <g class="words">
+            <g class="word">
+              <text class="w-shadow" x="218" y="218" textLength="235" lengthAdjust="spacingAndGlyphs" data-line="0">Día</text>
+              <text class="w-main" x="211" y="209" textLength="235" lengthAdjust="spacingAndGlyphs" data-line="0">Día</text>
+            </g>
+            <g class="word">
+              <text class="w-shadow" x="239" y="309" textLength="218" lengthAdjust="spacingAndGlyphs" data-line="1">del</text>
+              <text class="w-main" x="232" y="300" textLength="218" lengthAdjust="spacingAndGlyphs" data-line="1">del</text>
+            </g>
+            <g class="word">
+              <text class="w-shadow" x="198" y="400" textLength="378" lengthAdjust="spacingAndGlyphs" data-line="2">Hombre</text>
+              <text class="w-main" x="191" y="391" textLength="378" lengthAdjust="spacingAndGlyphs" data-line="2">Hombre</text>
+            </g>
           </g>
         </svg>
       </h1>
@@ -650,7 +614,7 @@
       minute: 0,
       timeZone: 'America/Santiago',
       eyebrowText: 'Cuenta regresiva especial',
-      titleWords: ['día', 'del', 'hombre'], // palabras del logo (una por línea)
+      titleWords: ['Día', 'del', 'Hombre'], // palabras del logo (una por línea)
       subtitleText: 'Esperando el 19 de noviembre a las 09:00.',
       footerText: 'Hora de Chile. Al terminar el día, el contador vuelve automáticamente al próximo 19 de noviembre.',
       endMessage: 'Por si no te saludaron: feliz Día del Hombre',
@@ -675,7 +639,9 @@
     const soundButtonText = soundButton.querySelector('.button-text');
 
     document.getElementById('eyebrowText').textContent = EVENT_CONFIG.eyebrowText;
-    document.querySelectorAll('#mainTitle [data-line]').forEach((el) => {
+    const mainTitle = document.getElementById('mainTitle');
+    mainTitle.setAttribute('aria-label', EVENT_CONFIG.titleWords.join(' '));
+    mainTitle.querySelectorAll('[data-line]').forEach((el) => {
       el.textContent = EVENT_CONFIG.titleWords[Number(el.dataset.line)] || '';
     });
     document.getElementById('subtitleText').textContent = EVENT_CONFIG.subtitleText;
@@ -683,24 +649,6 @@
     document.getElementById('finalMessage').textContent = EVENT_CONFIG.endMessage;
     finalVideo.querySelector('source').src = EVENT_CONFIG.videoPath;
     finalVideo.load();
-
-    // Centra el bloque de palabras sobre el XIX cuando la fuente ya cargó
-    function centerLogoWords() {
-      const words = document.getElementById('logoWords');
-      words.removeAttribute('transform');
-      const box = words.getBBox();
-      if (!box.width) {
-        return;
-      }
-      const dx = 400 - (box.x + box.width / 2);
-      words.setAttribute('transform', `translate(${dx.toFixed(1)} 0)`);
-    }
-
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(centerLogoWords);
-    } else {
-      window.addEventListener('load', centerLogoWords);
-    }
 
     // Leve movimiento del fondo y logo siguiendo el mouse (solo PC)
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -920,7 +868,7 @@
       finalKickerEl.textContent = eventWindow.demo ? 'Modo prueba activo' : 'Día del Hombre activo';
       finalStatusEl.textContent = getFinalStatus(eventWindow);
 
-      const eventId = String(eventWindow.start.getTime());
+      const eventId = eventWindow.demo ? 'demo' : String(eventWindow.start.getTime());
       if (autoplayEventId === eventId) {
         return;
       }

@@ -5,16 +5,20 @@ ARCHIVOS DEL PROYECTO
 3) video.mp4 -> video que aparece cuando llega el Día del Hombre
 4) fonts/ -> fuente local Teko 700 para el logo y su licencia SIL OFL 1.1
 5) palmeras-portada.webp -> ilustración transparente para el primer plano de la portada
-6) musica.js -> música de fondo original (synthwave) generada en vivo, en bucle infinito
+6) musica-fondo.mp3 -> canción de fondo (se repite en bucle infinito)
+7) musica.js -> reproduce la canción de fondo; si no carga, usa una pista synthwave original de respaldo
 
 MÚSICA DE FONDO
 
-- Es una pista original creada para este contador; no usa archivos de audio ni canciones con derechos.
+- Suena musica-fondo.mp3 en repetición infinita. Para cambiarla, reemplaza ese archivo
+  (o cambia "track" en CONFIG al inicio de musica.js).
+- La canción es de un tercero ("GTA 6 - Official Main Theme Music - Dan Allen Gaming");
+  se publicó por decisión del dueño del sitio. Si hay reclamo de derechos, quítala o cámbiala.
 - Intenta sonar apenas abre la página. Si el navegador bloquea el sonido automático
   (Chrome, Safari y celulares suelen hacerlo), parte sola con el primer toque, clic o tecla.
 - Se baja sola mientras el video del día suena con audio.
 - El botón ♪ abajo a la derecha la apaga o la vuelve a prender.
-- Para cambiar volumen o velocidad, edita CONFIG al inicio de musica.js (volume, bpm).
+- Para cambiar el volumen, edita CONFIG al inicio de musica.js (volume).
 
 COMO FUNCIONA
 
@@ -57,6 +61,7 @@ Sube la carpeta completa a Vercel:
 - fondo-portada-movil.webp
 - palmeras-portada.webp
 - musica.js
+- musica-fondo.mp3
 - fonts/
 - video.mp4
 

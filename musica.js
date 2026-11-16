@@ -19,6 +19,7 @@
   }
 
   const CONFIG = {
+    track: 'musica-fondo.mp3', // canción de fondo; si no carga, suena la pista synthwave de respaldo
     bpm: 104,
     volume: 0.55,      // volumen general (0 a 1)
     duckVolume: 0.12,  // volumen mientras suena el video con audio
@@ -54,6 +55,9 @@
   let userMuted = false;
   let ducked = false;
   let fadedIn = false;
+  let trackAudio = null;
+  let useSynth = !CONFIG.track;
+  let schedulerOn = false;
 
   function build() {
     ctx = new AudioCtx();
@@ -340,8 +344,15 @@
   button.setAttribute('aria-label', 'Música de fondo');
   document.body.appendChild(button);
 
+  function isPlaying() {
+    if (!ctx || ctx.state !== 'running') {
+      return false;
+    }
+    return useSynth || (trackAudio && !trackAudio.paused);
+  }
+
   function updateButton() {
-    const running = ctx && ctx.state === 'running';
+    const running = isPlaying();
     button.classList.toggle('is-waiting', !running && !userMuted);
     button.classList.toggle('is-off', userMuted);
     button.setAttribute('aria-pressed', String(!userMuted));
@@ -356,33 +367,63 @@
   }
 
   // ---------- Arranque ----------
-  function start() {
-    if (!ctx) {
-      build();
-      nextTime = ctx.currentTime + 0.1;
-      setInterval(scheduler, 25);
-      ctx.onstatechange = () => {
-        updateButton();
-        if (ctx.state === 'running' && !fadedIn) {
-          fadedIn = true;
-          applyVolume(CONFIG.fadeIn);
-        }
-      };
+  function startSynth() {
+    if (schedulerOn) {
+      return;
     }
-    if (ctx.state !== 'running') {
-      ctx.resume().catch(() => {});
-    }
-    if (ctx.state === 'running' && !fadedIn) {
+    schedulerOn = true;
+    nextTime = ctx.currentTime + 0.1;
+    setInterval(scheduler, 25);
+  }
+
+  function fadeInOnce() {
+    if (!fadedIn && isPlaying()) {
       fadedIn = true;
       applyVolume(CONFIG.fadeIn);
     }
     updateButton();
   }
 
+  function setupTrack() {
+    trackAudio = new Audio();
+    trackAudio.src = CONFIG.track;
+    trackAudio.loop = true; // repetición infinita
+    trackAudio.preload = 'auto';
+    trackAudio.setAttribute('playsinline', '');
+    ctx.createMediaElementSource(trackAudio).connect(bus);
+    trackAudio.addEventListener('playing', fadeInOnce);
+    trackAudio.addEventListener('pause', updateButton);
+    trackAudio.addEventListener('error', () => {
+      // Si la canción no carga, suena la pista synthwave de respaldo
+      useSynth = true;
+      startSynth();
+      fadeInOnce();
+    });
+  }
+
+  function start() {
+    if (!ctx) {
+      build();
+      if (useSynth) {
+        startSynth();
+      } else {
+        setupTrack();
+      }
+      ctx.onstatechange = fadeInOnce;
+    }
+    if (ctx.state !== 'running') {
+      ctx.resume().then(fadeInOnce).catch(() => {});
+    }
+    if (!useSynth && trackAudio && trackAudio.paused) {
+      trackAudio.play().then(fadeInOnce).catch(() => updateButton());
+    }
+    fadeInOnce();
+  }
+
   const unlockEvents = ['pointerdown', 'keydown', 'touchend', 'click'];
   function unlock() {
     start();
-    if (ctx && ctx.state === 'running') {
+    if (isPlaying()) {
       unlockEvents.forEach((ev) => document.removeEventListener(ev, unlock, true));
     }
   }
@@ -390,7 +431,7 @@
 
   button.addEventListener('click', (event) => {
     event.stopPropagation();
-    if (!ctx || ctx.state !== 'running') {
+    if (!isPlaying()) {
       userMuted = false;
       start();
       return;

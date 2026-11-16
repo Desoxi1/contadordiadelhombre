@@ -81,9 +81,19 @@
     .bg {
       position: absolute;
       inset: 0;
-      background: #120630 url('fondo_vice.svg') center 62% / cover no-repeat;
-      transform-origin: 50% 60%;
+      background: #120624 url('fondo_collage.svg') center / cover no-repeat;
+      transform-origin: 50% 50%;
       animation: kenBurns 30s ease-in-out infinite alternate;
+    }
+
+    /* En celular vertical, collage armado en vertical */
+    @media (orientation: portrait) {
+      .bg { background-image: url('fondo_collage_movil.svg'); }
+    }
+
+    /* Oscurece el centro del collage para que el logo y el contador se lean */
+    .focus {
+      background: radial-gradient(ellipse 62% 58% at 50% 50%, rgba(11,4,24,0.72), rgba(11,4,24,0.35) 60%, rgba(11,4,24,0.15) 100%);
     }
 
     .sun-pulse {
@@ -530,12 +540,7 @@
   <section id="countdownScreen" class="screen" aria-live="polite">
     <div class="scene" aria-hidden="true">
       <div class="bg-wrap"><div class="bg"></div></div>
-      <div class="sun-pulse"></div>
-      <div class="palms">
-        <svg class="palm left back" viewBox="0 0 220 420"><use href="#palmShape"/></svg>
-        <svg class="palm left" viewBox="0 0 220 420"><use href="#palmShape"/></svg>
-        <svg class="palm right" viewBox="0 0 220 420"><use href="#palmShape"/></svg>
-      </div>
+      <div class="focus"></div>
       <div class="flare"></div>
       <div class="scan"></div>
       <div class="grain"></div>
@@ -602,7 +607,7 @@
   <section id="finalScreen" class="screen">
     <div class="scene" aria-hidden="true">
       <div class="bg-wrap"><div class="bg"></div></div>
-      <div class="sun-pulse"></div>
+      <div class="focus"></div>
       <div class="flare"></div>
       <div class="grain"></div>
       <div class="shade"></div>

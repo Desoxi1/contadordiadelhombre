@@ -31,7 +31,7 @@ Ahí puedes cambiar:
 
 - timeZone: zona horaria
 - eyebrowText: texto superior
-- titleWords: palabras del logo, una por línea (ej. Día, del, Hombre)
+- titleWords: palabras del logo, una por línea (ej. Día, Del, Hombre)
 - subtitleText: texto bajo el título
 - footerText: texto inferior
 - endMessage: mensaje cuando aparece el video
